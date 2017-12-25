@@ -4,6 +4,8 @@ import { FormsModule }    from '@angular/forms';
 import { AppComponent } from './app.component';
 import { routing }        from './app.routing';
 import { UserComponent } from './user/index';
+import { UserService } from './user/user.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -12,9 +14,10 @@ import { UserComponent } from './user/index';
   imports: [
     BrowserModule,
     routing,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
