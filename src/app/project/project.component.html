@@ -4,19 +4,10 @@
      <form name="projectform" (ngSubmit)="f.form.valid && addProject(model)" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !project.valid }">
             <label for="project">Project</label>
-            <input type="text" class="form-control" name="project" [(ngModel)]="model.project" #first_Name="ngModel" required />
+            <input type="text" class="form-control" name="project" [(ngModel)]="model.project" #project="ngModel" required />
             <div *ngIf="f.submitted && !project.valid" class="help-block">project is required</div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !last_Name.valid }">
-            <label for="last_Name">Last Name</label>
-            <input type="text" class="form-control" name="last_Name" [(ngModel)]="model.last_Name" #last_Name="ngModel" required />
-            <div *ngIf="f.submitted && !last_Name.valid" class="help-block">Last Name is required</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !employee_ID.valid }">
-            <label for="employee_ID">Employee ID</label>
-            <input type="text" class="form-control" name="employee_ID" [(ngModel)]="model.employee_ID" #employee_ID="ngModel" required />
-            <div *ngIf="f.submitted && !employee_ID.valid" class="help-block">Employee ID is required</div>
-        </div>
+        
   
        <div class="form-group">
             <button  class="btn btn-primary">Add</button>
@@ -38,63 +29,40 @@
             <br>
             <div class='table-responsive'>
                 <table class='table'
-                        *ngIf='users && users.length'>
+                        *ngIf='projects && projects.length'>
                          <tbody>
-                            <tr *ngFor='let user of users'>
+                            <tr *ngFor='let _project of filteredProjects'>
                                 <table>
                                                           
-                                <tr  class='col-4'>  <td>
-                                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !first_Name.valid }">
-                                                   <input type="text" class="form-control" name="first_Name" [(ngModel)]="user.first_Name" #first_Name="ngModel" required /> 
-                                               <div *ngIf="f.submitted && !first_Name.valid" class="help-block">First Name is required</div>
-                                               
-                                            </div>
-                                            
-                                            </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            
-                                            <td> 
-                                            <div class="form-group" >
-                                                    <button  class="btn btn-primary;align:right" (click)='edit(user)'>Edit</button>
-                                                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                                                    
-                                                </div>   
-                                            </td>
+                                <tr  class='col-8'>  <td>
+                                       <table>
+                                           <tr>
+                                               <td>
+                                                    <label for="project">Project : </label>  {{_project.project}}
+                                               </td>
+                                           </tr>
+                                           <tr>
+                                                <td>
+                                                     <label for="NoOfTask">No of Tasks : </label> 0
+                                                </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <td>
+                                                        <label for="completed">Completed : </label> 0
+                                                   </td>
+                                            </tr>
+                                            <tr>
+                                                    <td>
+                                                         <label for="start_Date">Start Date : </label> {{_project.start_Date}}
+                                                    </td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <td>
+                                                            <label for="end_Date">End Date : </label> {{_project.end_Date}}
+                                                       </td>
+                                                </tr>
 
-
-                                            
-                                           
-                                   
+                                       </table>
                                 </tr>
-                                <tr> 
-                                    <td>
-
-                                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !last_Name.valid }">
-                                                   <input type="text" class="form-control" name="last_Name" [(ngModel)]="user.last_Name" #first_Name="ngModel" required />
-                                          
-                                    <div *ngIf="f.submitted && !last_Name.valid" class="help-block">last_Name is required</div>
-                                           
-                                            </div>
-                                        </td>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                            
-                                            <td> 
-                                            <div class="form-group" >
-                                                    <button  class="btn btn-primary;align:right" (click)='delete(user.user_ID)'>Delete</button>
-                                                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                                                    
-                                                </div>   
-                                            </td>
-
-
-                                     </tr>
+                            
                                    
-                                <tr>   
-                                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !employee_ID.valid }">
-                                                <input type="text" class="form-control" name="employee_ID" [(ngModel)]="user.employee_ID" #first_Name="ngModel" required />
-                                             <div *ngIf="f.submitted && !last_Name.valid" class="help-block">employee_ID is required</div>
-                                         </div>
-  
-                                </tr>
+                               
                                 </table>
                                 <div class='panel panel-primary'> </div>    
                             </tr>

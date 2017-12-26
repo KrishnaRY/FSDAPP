@@ -24,7 +24,8 @@ export class ProjectService {
        return Observable.throw(error.status);
     }
      private extractData(res: Response) {
-	let body = res.json();
+    let body = res.json();
+    console.log(body);
         return body;
     }
 }

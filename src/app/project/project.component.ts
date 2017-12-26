@@ -15,6 +15,15 @@ export class ProjectComponent implements OnInit{
     model: any = {};
     loading = false;
     errorMessage: string;
+    _listFilter: string;
+    get listFilter(): string {
+        return this._listFilter;
+    }
+    set listFilter(value: string) {
+        this._listFilter = value;
+        this.filteredProjects = this.listFilter ? this.performFilter(this.listFilter) : this.projects;
+    }
+    filteredProjects: IProject[];
     projects: IProject[] = [];
     constructor(
         private router: Router,
@@ -24,9 +33,16 @@ export class ProjectComponent implements OnInit{
             this.projectService.getProjects()
             .subscribe(projects => {
                 this.projects = projects;
+                this.filteredProjects=projects;
                
             },
                 error => this.errorMessage = <any>error);
+        }
+
+        performFilter(filterBy: string): IProject[] {
+            filterBy = filterBy.toLocaleLowerCase();
+            return this.projects.filter((_project: IProject) =>
+            _project.project.toLocaleLowerCase().indexOf(filterBy) !== -1);
         }
 }
 

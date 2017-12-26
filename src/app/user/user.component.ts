@@ -14,31 +14,54 @@ export class UserComponent implements OnInit{
     model: any = {};
     loading = false;
     errorMessage: string;
+    adduser: boolean = true;
+    _listFilter: string;
+    get listFilter(): string {
+        return this._listFilter;
+    }
+    set listFilter(value: string) {
+        this._listFilter = value;
+        this.filteredUsers = this.listFilter ? this.performFilter(this.listFilter) : this.users;
+    }
+    filteredUsers: IUser[];
     users: IUser[] = [];
     constructor(
         private router: Router,
         private userService: UserService) { }
 
         addUser(user) {
+           
+            if(user.user_ID){
+           
+          this.userService.updateUser(user) .subscribe(response => {
+            this.model=[];  
+            this.adduser = true;     
+            },
+                error => this.errorMessage = <any>error);
+
+            }else{
+              
+
            this.userService.addUser(user) .subscribe(response => {
            
                    
             },
                 error => this.errorMessage = <any>error);    
-          
-           
+        }
+
         }
      reset(userform: NgForm):void {
     userform.resetForm();
     
   }
          edit(user) {
-          
-            this.userService.updateUser(user) .subscribe(response => {
+            this.model=user;
+            this.adduser = false;
+          /*  this.userService.updateUser(user) .subscribe(response => {
            
                    
             },
-                error => this.errorMessage = <any>error);
+                error => this.errorMessage = <any>error);*/
            
         }
 
@@ -55,10 +78,19 @@ export class UserComponent implements OnInit{
             this.userService.getUsers()
             .subscribe(users => {
                 this.users = users;
-               
+                this.filteredUsers=users;
             },
                 error => this.errorMessage = <any>error);
+        }   
+        
+        performFilter(filterBy: string): IUser[] {
+            filterBy = filterBy.toLocaleLowerCase();
+            return this.users.filter((user: IUser) =>
+                  user.first_Name.toLocaleLowerCase().indexOf(filterBy) !== -1);
         }
+    
+
+
 }
 
 

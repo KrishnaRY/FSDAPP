@@ -19,7 +19,7 @@
         </div>
   
        <div class="form-group">
-            <button  class="btn btn-primary">Add</button>
+            <button  class="btn btn-primary"> {{adduser ? 'Add' : 'Edit'}}</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             <button  class="btn btn-primary" (click)='reset(userform)'>Reset</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
@@ -39,16 +39,15 @@
                 <table class='table'
                         *ngIf='users && users.length'>
                          <tbody>
-                            <tr *ngFor='let user of users'>
+                            <tr *ngFor='let user of filteredUsers'>
                                 <table>
                                                           
                                 <tr  class='col-4'>  <td>
                                         <div class="form-group" >
-                                                   <input type="text" class="form-control" name="first_Name" [(ngModel)]="user.first_Name" #first_Name="ngModel" required /> 
-                                               <div *ngIf="f.submitted && !first_Name.valid" class="help-block">First Name is required</div>
+                                                   <input type="text" [readonly]="true" class="form-control" name="first_Name" [(ngModel)]="user.first_Name" #first_Name="ngModel"  /> 
                                                
                                             </div>
-                                            
+ 
                                             </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             
                                             <td> 
@@ -68,9 +67,9 @@
                                     <td>
 
                                     <div class="form-group" >
-                                                   <input type="text" class="form-control" name="last_Name" [(ngModel)]="user.last_Name" #first_Name="ngModel"  />
-                                          
-                                    
+                                                   <input type="text" [readonly]="true" class="form-control" name="last_Name" [(ngModel)]="user.last_Name" #first_Name="ngModel"  />
+                                           
+                                     
                                            
                                             </div>
                                         </td>
@@ -89,10 +88,10 @@
                                    
                                 <tr>   
                                         <div class="form-group" >
-                                                <input type="text" class="form-control" name="employee_ID" [(ngModel)]="user.employee_ID" #first_Name="ngModel"  />
+                                                <input type="text"  [readonly]="true" class="form-control" name="employee_ID" [(ngModel)]="user.employee_ID" #first_Name="ngModel"  />
                                             
                                          </div>
-  
+   
                                 </tr>
                                 </table>
                                 <div class='panel panel-primary'> </div>    
