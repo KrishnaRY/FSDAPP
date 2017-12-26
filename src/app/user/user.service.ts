@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Http, Response, Headers, URLSearchParams, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -12,35 +12,47 @@ import { IUser } from './user';
 export class UserService {
     private _userUrl = 'http://localhost:8080';
 
-    constructor(private _http: HttpClient) { }
+    constructor(private _http: Http) { }
 
     getUsers(): Observable<IUser[]> {
-        return this._http.get<IUser[]>(this._userUrl+"/users")
-            .do(data => console.log('All: ' + JSON.stringify(data)))
+        return this._http.get(this._userUrl+"/users")
+            .map(this.extractData)
             .catch(this.handleError);
     }
-
-    deleteUser(user_ID): Observable<IUser[]> {
+ 
+    deleteUser(user_ID:number): Observable<Response> {
     
      var _userUrl1=this._userUrl+"/delete/"+user_ID;
-     alert(_userUrl1);
+    
              return this._http.delete(_userUrl1)
              .catch(this.handleError);
     }
+ addUser(user): Observable<Response> {
 
-    private handleError(err: HttpErrorResponse) {
-        // in a real world app, we may send the server to some remote logging infrastructure
-        // instead of just logging it to the console
-        let errorMessage = '';
-        if (err.error instanceof Error) {
-            // A client-side or network error occurred. Handle it accordingly.
-            errorMessage = `An error occurred: ${err.error.message}`;
-        } else {
-            // The backend returned an unsuccessful response code.
-            // The response body may contain clues as to what went wrong,
-            errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
-        }
-        console.error(errorMessage);
-        return Observable.throw(errorMessage);
+          let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: cpHeaders });
+    return this._http.post(this._userUrl +"/addUser", user, options)
+           .map(success => success.status)
+           .catch(this.handleError);
+    
+    
+    }
+     updateUser(user): Observable<Response> {
+
+          let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: cpHeaders });
+    return this._http.post(this._userUrl +"/updateUser", user, options)
+           .map(success => success.status)
+           .catch(this.handleError);
+    
+    
+    }
+
+    private handleError(error: Response | any) {
+       return Observable.throw(error.status);
+    }
+     private extractData(res: Response) {
+	let body = res.json();
+        return body;
     }
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { IUser } from './user';
 import { I18NHtmlParser } from '@angular/compiler/src/i18n/i18n_html_parser';
+import { NgForm } from '@angular/forms';
 @Component({
   
     moduleId: module.id,
@@ -18,18 +19,36 @@ export class UserComponent implements OnInit{
         private router: Router,
         private userService: UserService) { }
 
-        addUser() {
-            this.loading = true;
+        addUser(user) {
+           this.userService.addUser(user) .subscribe(response => {
+           
+                   
+            },
+                error => this.errorMessage = <any>error);    
+          
            
         }
-        reset() {
-            this.loading = false;
+     reset(userform: NgForm):void {
+    userform.resetForm();
+    
+  }
+         edit(user) {
+          
+            this.userService.updateUser(user) .subscribe(response => {
+           
+                   
+            },
+                error => this.errorMessage = <any>error);
            
         }
 
         delete(user_ID){
-          this.userService.deleteUser(user_ID);
-         
+       
+          this.userService.deleteUser(user_ID) .subscribe(response => {
+              this.router.navigate(['/user']); 
+                   
+            },
+                error => this.errorMessage = <any>error);
          
         }
         ngOnInit(): void {
@@ -41,4 +60,5 @@ export class UserComponent implements OnInit{
                 error => this.errorMessage = <any>error);
         }
 }
+
 

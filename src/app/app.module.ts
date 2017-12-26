@@ -5,19 +5,24 @@ import { AppComponent } from './app.component';
 import { routing }        from './app.routing';
 import { UserComponent } from './user/index';
 import { UserService } from './user/user.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ProjectService } from './project/project.service';
+import { ProjectComponent } from './project/index';
+import { HttpModule } from '@angular/http';
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent
+    UserComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
-    HttpClientModule
+    HttpModule
   ],
-  providers: [UserService],
+  providers: [UserService,ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
