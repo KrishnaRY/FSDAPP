@@ -1,20 +1,23 @@
-﻿import { Component,OnInit } from '@angular/core';
+﻿import { Component,OnInit,OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { IUser } from './user';
 import { I18NHtmlParser } from '@angular/compiler/src/i18n/i18n_html_parser';
 import { NgForm } from '@angular/forms';
+
 @Component({
   
     moduleId: module.id,
     templateUrl: 'user.component.html'
 })
 
-export class UserComponent implements OnInit{
+export class UserComponent implements OnInit, OnDestroy{
+    pageTitle:string='Add User';
     model: any = {};
     loading = false;
     errorMessage: string;
     adduser: boolean = true;
+    interval:any;
     _listFilter: string;
     get listFilter(): string {
         return this._listFilter;
@@ -35,7 +38,8 @@ export class UserComponent implements OnInit{
            
           this.userService.updateUser(user) .subscribe(response => {
             this.model=[];  
-            this.adduser = true;     
+            this.adduser = true;  
+            this.pageTitle='Add User' ;   
             },
                 error => this.errorMessage = <any>error);
 
@@ -53,16 +57,15 @@ export class UserComponent implements OnInit{
      reset(userform: NgForm):void {
     userform.resetForm();
     
+    
+       this.pageTitle='Add User' ;  
+      
   }
          edit(user) {
             this.model=user;
             this.adduser = false;
-          /*  this.userService.updateUser(user) .subscribe(response => {
-           
-                   
-            },
-                error => this.errorMessage = <any>error);*/
-           
+            this.pageTitle='Edit User' ;
+         
         }
 
         delete(user_ID){
@@ -75,20 +78,30 @@ export class UserComponent implements OnInit{
          
         }
         ngOnInit(): void {
-            this.userService.getUsers()
-            .subscribe(users => {
-                this.users = users;
-                this.filteredUsers=users;
-            },
-                error => this.errorMessage = <any>error);
+         this.refreshData();
+        this.interval = setInterval(() => { 
+            this.refreshData(); 
+        }, 5000)
+           
         }   
-        
+    ngOnDestroy() {
+      
+        clearInterval(this.interval);
+    }
         performFilter(filterBy: string): IUser[] {
             filterBy = filterBy.toLocaleLowerCase();
             return this.users.filter((user: IUser) =>
                   user.first_Name.toLocaleLowerCase().indexOf(filterBy) !== -1);
         }
     
+ refreshData(){
+       this.userService.getUsers()
+            .subscribe(users => {
+                this.users = users;
+                this.filteredUsers=users;
+            },
+                error => this.errorMessage = <any>error);
+    }
 
 
 }

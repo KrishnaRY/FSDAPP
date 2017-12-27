@@ -5,17 +5,16 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
-import { IProject } from './project';
+import { IViewTask } from './view-task';
 import { environment } from '../../environments/environment';
-
 @Injectable()
-export class ProjectService {
-    private _projectUrl = environment.apiEndpoint;
+export class ViewTaskService {
+    private _tasktUrl = environment.apiEndpoint;
 
     constructor(private _http: Http) { }
 
-    getProjects(): Observable<IProject[]> {
-        return this._http.get(this._projectUrl+"/projects")
+    getViewTasks(): Observable<IViewTask[]> {
+        return this._http.get(this._tasktUrl+"/tasks")
             .map(this.extractData)
             .catch(this.handleError);
     }

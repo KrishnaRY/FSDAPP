@@ -1,15 +1,22 @@
 <div style="text-align:left">
-  <h1>
-    {{title}}
+   <nav class='navbar navbar-default'>
+  <div class='container-fluid'> <h1>
+    <a class='navbar-brand'>{{title}}</a>
   </h1>
-  <div class="form-group">
-    <a [routerLink]="['/project']" class="btn btn-link">Add Project</a>
-    <a   class="btn btn-link">Add Task</a>
-    <a [routerLink]="['/user']" class="btn btn-link">Add User</a>
-    <a  class="btn btn-link">View Task</a>
+  </div>
+   </nav>
+     <nav class='navbar navbar-default'>
+      <div class='container-fluid'>
+         <ul class='nav navbar-nav'>
+     <li><a [routerLink]="['/project']" class="btn btn-link">Add Project</a></li>
+     <li><a [routerLink]="['/task']"  class="btn btn-link">Add Task</a></li>
+     <li><a [routerLink]="['/user']" class="btn btn-link">Add User</a></li>
+     <li><a  [routerLink]="['/viewtask']"class="btn btn-link">View Task</a></li>
+     </ul>
+     </div>
+    </nav>
    
-   
-   </div>
+  
 </div>
 <div><router-outlet></router-outlet></div>
 

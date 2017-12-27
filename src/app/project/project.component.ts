@@ -12,8 +12,10 @@ import { NgForm } from '@angular/forms';
 })
 
 export class ProjectComponent implements OnInit{
+    pageTitle:string='Add Project';
     model: any = {};
     loading = false;
+    showDate: boolean = true;
     errorMessage: string;
     _listFilter: string;
     get listFilter(): string {
@@ -44,6 +46,11 @@ export class ProjectComponent implements OnInit{
             return this.projects.filter((_project: IProject) =>
             _project.project.toLocaleLowerCase().indexOf(filterBy) !== -1);
         }
+
+        toggleCheckBox(): void {
+         this.model.start_Date= new Date();
+        this.showDate = !this.showDate;
+    }
 }
 
 

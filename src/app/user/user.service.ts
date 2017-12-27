@@ -5,12 +5,13 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
+import { environment } from '../../environments/environment';
 
 import { IUser } from './user';
 
 @Injectable()
 export class UserService {
-    private _userUrl = 'http://localhost:8080';
+    private _userUrl = environment.apiEndpoint;
 
     constructor(private _http: Http) { }
 

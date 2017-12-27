@@ -7,6 +7,10 @@ import { UserComponent } from './user/index';
 import { UserService } from './user/user.service';
 import { ProjectService } from './project/project.service';
 import { ProjectComponent } from './project/index';
+import { TaskComponent } from './task/index';
+import { TaskService } from './task/task.service';
+import { ViewTaskComponent } from './viewtask/index';
+import { ViewTaskService } from './viewtask/view-task.service';
 import { HttpModule } from '@angular/http';
 
 
@@ -14,7 +18,9 @@ import { HttpModule } from '@angular/http';
   declarations: [
     AppComponent,
     UserComponent,
-    ProjectComponent
+    ProjectComponent,
+    TaskComponent,
+    ViewTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +28,7 @@ import { HttpModule } from '@angular/http';
     FormsModule,
     HttpModule
   ],
-  providers: [UserService,ProjectService],
+  providers: [UserService,ProjectService,TaskService,ViewTaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
