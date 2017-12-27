@@ -1,23 +1,25 @@
-﻿import { Component,OnInit,OnDestroy } from '@angular/core';
+﻿import { Component,OnInit,OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { IUser } from './user';
 import { I18NHtmlParser } from '@angular/compiler/src/i18n/i18n_html_parser';
 import { NgForm } from '@angular/forms';
 
+
 @Component({
   
     moduleId: module.id,
-    templateUrl: 'user.component.html'
+    templateUrl: 'user.component.html',
+    styleUrls: ['./user.component.css']
 })
 
-export class UserComponent implements OnInit, OnDestroy{
+export class UserComponent implements OnInit, OnChanges{
     pageTitle:string='Add User';
     model: any = {};
     loading = false;
     errorMessage: string;
     adduser: boolean = true;
-    interval:any;
+  
     _listFilter: string;
     get listFilter(): string {
         return this._listFilter;
@@ -51,6 +53,8 @@ export class UserComponent implements OnInit, OnDestroy{
                    
             },
                 error => this.errorMessage = <any>error);    
+                this.refreshData();
+                this.model=[];  
         }
 
         }
@@ -75,19 +79,18 @@ export class UserComponent implements OnInit, OnDestroy{
                    
             },
                 error => this.errorMessage = <any>error);
-         
+                this.refreshData();
         }
         ngOnInit(): void {
          this.refreshData();
-        this.interval = setInterval(() => { 
-            this.refreshData(); 
-        }, 5000)
+       
            
         }   
-    ngOnDestroy() {
-      
-        clearInterval(this.interval);
-    }
+        ngOnChanges():void{
+         this.refreshData();
+            
+        }
+   
         performFilter(filterBy: string): IUser[] {
             filterBy = filterBy.toLocaleLowerCase();
             return this.users.filter((user: IUser) =>
