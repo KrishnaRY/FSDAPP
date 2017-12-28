@@ -12,6 +12,7 @@ import { TaskService } from './task/task.service';
 import { ViewTaskComponent } from './viewtask/index';
 import { ViewTaskService } from './viewtask/view-task.service';
 import { HttpModule } from '@angular/http';
+import {D3SliderDirective} from 'ng-d3-slider/d3-slider.directive'
 
 
 @NgModule({
@@ -20,13 +21,15 @@ import { HttpModule } from '@angular/http';
     UserComponent,
     ProjectComponent,
     TaskComponent,
-    ViewTaskComponent
+    ViewTaskComponent,
+    D3SliderDirective
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
     HttpModule
+    
   ],
   providers: [UserService,ProjectService,TaskService,ViewTaskService],
   bootstrap: [AppComponent]

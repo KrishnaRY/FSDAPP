@@ -8,7 +8,8 @@ import { NgForm } from '@angular/forms';
 @Component({
   
     moduleId: module.id,
-    templateUrl: 'project.component.html'
+    templateUrl: 'project.component.html',
+    styleUrls: ['./project.component.css']
 })
 
 export class ProjectComponent implements OnInit{
@@ -48,8 +49,7 @@ export class ProjectComponent implements OnInit{
         }
 
         toggleCheckBox(): void {
-         this.model.start_Date= new Date();
-        this.showDate = !this.showDate;
+        this.showDate=!this.showDate;
     }
 }
 

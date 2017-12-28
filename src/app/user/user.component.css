@@ -1,7 +1,27 @@
 .list-group{
-    width: 200px;
+    width: 280px;
+    
    
 }
 .list-group-item{
     background-color :#F5F6F6;
+    overflow-wrap: break-word;
+    border-style:hidden;
+}
+.form-control{
+     width: 280px;
+     background-color :#F5F6F6; 
+     border-style:hidden;
+     padding-left:20px;
+       
+}
+
+label {
+    width:180px;
+    clear:left;
+    text-align:left;
+    padding-right:10px;
+}
+.button-form-group{
+    float: right;
 }

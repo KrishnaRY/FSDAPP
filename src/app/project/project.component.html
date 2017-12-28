@@ -2,24 +2,44 @@
 <div class="col-md-6 col-md-offset-3">
     <h2>{{pageTitle}}</h2>
      <form name="projectform" (ngSubmit)="f.form.valid && addProject(model)" #f="ngForm" novalidate>
+        <table>
+            <tr>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !project.valid }">
+            <td>
             <label for="project">Project</label>
+             </td>
+                    <td>
             <input type="text" class="form-control" name="project" [(ngModel)]="model.project" #project="ngModel" required />
+            </td>
             <div *ngIf="f.submitted && !project.valid" class="help-block">project is required</div>
         </div>
+        </tr>
+            <tr>
           <div class="form-group" >
-            
+              <td>
+                   </td>
+                    <td>
            <input type="checkbox" ng-model="setdate" (click)='toggleCheckBox()'>  <label for="setdate">Set Start and End Date</label>
-          <input  disabled={{showDate}}   name="start_Date" [(ngModel)]="model.start_Date" type="date" value="start date" #start_Date="ngModel"/>
+          <input  disabled={{showDate}}   name="start_Date" [(ngModel)]="model.start_Date" type="date" value="start date" #start_Date="ngModel" />
            <input disabled={{showDate}}  name="end_Date"   [(ngModel)]="model.end_Date" type="date" value="end date" #end_Date="ngModel" />
+           </td>
           </div>
+                </tr>
+                <tr>
+        <div class="slidecontainer">
+      <td colspan="2">
+  0<input type="range" min="0" max="30" value="0" class="slider" name="priority" [(ngModel)]="model.priority" #priority="ngModel">
  
+ </td>
+ <td>30</td>
+ <td>30</td>
+</div>
        <div class="form-group">
             <button  class="btn btn-primary">Add</button>
               <button  class="btn btn-primary" (click)='reset(userform)'>Reset</button>
             
         </div>
-          
+      </table>   
     </form>
     <div class='panel panel-primary'> </div>
     <div class='panel panel-primary'>
@@ -27,7 +47,7 @@
             <div class='row'>
                 
                  <div class='col-md-4'>
-                    <input type='text' [(ngModel)]='listFilter' />
+                    <input type='text' [(ngModel)]='listFilter' placeholder="Search ..." />
                 </div>
             </div>
             <br>

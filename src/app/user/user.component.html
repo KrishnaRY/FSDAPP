@@ -8,8 +8,7 @@
                         <label for="first_Name">First Name :</label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="first_Name" [(ngModel)]="model.first_Name" #first_Name="ngModel"
-                            required />
+                        <input type="text" class="form-control" name="first_Name" [(ngModel)]="model.first_Name" #first_Name="ngModel" required />
                     </td>
                     <div *ngIf="f.submitted && !first_Name.valid" class="help-block">First Name is required</div>
                 </div>
@@ -37,9 +36,11 @@
                         <div *ngIf="f.submitted && !employee_ID.valid" class="help-block">Employee ID is required</div>
                     </div>
                 </tr>
-                <div class="form-group">
-                    <button class="btn btn-primary"> {{adduser ? 'Add' : 'Edit'}}</button>
-                    <button class="btn btn-primary" (click)='reset(userform)'>Reset</button>
+                <div class="button-form-group">
+                    <ul>
+                    <button class="btn"> {{adduser ? 'Add' : 'Edit'}}</button>
+                    <button class="btn" (click)='reset(userform)'>Reset</button>
+                    </ul>
 
                 </div>
         </table>
@@ -88,8 +89,8 @@
                                     <td>
 
                                         <div class="list-group">
-                                                <li class="list-group-item">{{user.last_Name}}</li>
-                                         </div>
+                                            <li class="list-group-item">{{user.last_Name}}</li>
+                                        </div>
                                     </td>
                                     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 
@@ -105,8 +106,8 @@
 
                                 <tr>
                                     <div class="list-group">
-                                            <li class="list-group-item">{{user.employee_ID}}</li>
-                               
+                                        <li class="list-group-item">{{user.employee_ID}}</li>
+
                                     </div>
 
                                 </tr>
