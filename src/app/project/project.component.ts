@@ -4,7 +4,8 @@ import { ProjectService } from './project.service';
 import { IProject } from './project';
 import { I18NHtmlParser } from '@angular/compiler/src/i18n/i18n_html_parser';
 import { NgForm } from '@angular/forms';
-
+import { MatDialog } from '@angular/material';
+import { UserDialogComponent} from '../shared/user-dialog.component';
 @Component({
   
     moduleId: module.id,
@@ -13,6 +14,7 @@ import { NgForm } from '@angular/forms';
 })
 
 export class ProjectComponent implements OnInit,OnChanges{
+    dialogResult = "";
     pageTitle:string='Add Project';
     model: any = {};
     loading = false;
@@ -29,7 +31,7 @@ export class ProjectComponent implements OnInit,OnChanges{
     }
     filteredProjects: IProject[];
     projects: IProject[] = [];
-    constructor(
+    constructor(public dialog: MatDialog,
         private router: Router,
         private projectService: ProjectService) { }
 
@@ -87,6 +89,19 @@ export class ProjectComponent implements OnInit,OnChanges{
         },
             error => this.errorMessage = <any>error);
      }
+
+
+     openUserModal() {
+        let dialogRef = this.dialog.open(UserDialogComponent, {
+          width: '600px',
+          data: 'This text is passed into the dialog'
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          console.log(`Dialog closed: ${result}`);
+          this.dialogResult = result;
+        })
+      }
    
 }
 

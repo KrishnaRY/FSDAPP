@@ -43,7 +43,9 @@
         <input type="text" class="form-control" name="user_ID" [(ngModel)]="model.user_ID" #user_ID="ngModel" required />
         </td>
         <div *ngIf="f.submitted && !user_ID.valid" class="help-block">Manager is required</div>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button  class="btn">Search</button></td>
+         <md-card-content>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button  class="btn" (click)='openUserModal()'>Search</button></td>
+        </md-card-content>        
     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </tr>
        <div class="form-group">

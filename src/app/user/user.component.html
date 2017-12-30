@@ -1,61 +1,66 @@
 ﻿<div class="col-md-6 col-md-offset-3">
     <h2>{{pageTitle}}</h2>
-    <form name="userform" (ngSubmit)="f.form.valid && addUser(model)" #f="ngForm" novalidate>
+    <form [formGroup]="form" novalidate>
         <table>
             <tr>
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !first_Name.valid }">
+                <form-control>
                     <td>
-                        <label for="first_Name">First Name :</label>
+                        <label for="first_Name">Firat Name:
+                            <span class="required-field">*</span>
+                        </label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="first_Name" [(ngModel)]="model.first_Name" #first_Name="ngModel" required />
+                        <input type="text" class="form-control" formControlName="first_Name" />
                     </td>
-                    <div *ngIf="f.submitted && !first_Name.valid" class="help-block">First Name is required</div>
-                </div>
+                </form-control>
+
             </tr>
+            <div class="form-group"></div>
             <tr>
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !last_Name.valid }">
+                <form-control>
                     <td>
-                        <label for="last_Name">Last Name :</label>
+                        <label for="last_Name">Last Name:
+                            <span class="required-field">*</span>
+                        </label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="last_Name" [(ngModel)]="model.last_Name" #last_Name="ngModel" required />
+                        <input type="text" class="form-control" formControlName="last_Name" />
                     </td>
-                    <div *ngIf="f.submitted && !last_Name.valid" class="help-block">Last Name is required</div>
-                </div>
-                <tr>
-                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !employee_ID.valid }">
-                        <td>
-                            <label for="employee_ID">Employee ID :</label>
-                        </td>
+                </form-control>
+            </tr>
+            <div class="form-group"></div>
+            <tr>
+                <form-control [label]="'Employee ID'">
+                    <td>
+                        <label for="employee_ID">Employee ID:
+                            <span class="required-field">*</span>
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="employee_ID" />
+                    </td>
+                </form-control>
+            </tr>
+            <div class="form-group"></div>
+            <div class="button-form-group">
+                <button [disabled]="form.invalid" class="btn btn-primary" (click)=addUser()> {{isUserUpdating ? 'Add' : 'Update'}}</button>
+                <button class="btn btn-primary" (click)='reset(userform)'>Reset</button>
 
-                        <td>
-                            <input type="text" class="form-control" name="employee_ID" [(ngModel)]="model.employee_ID" #employee_ID="ngModel" required
-                            />
-                        </td>
-                        <div *ngIf="f.submitted && !employee_ID.valid" class="help-block">Employee ID is required</div>
-                    </div>
-                </tr>
-                <div class="button-form-group">
-                    <ul>
-                    <button class="btn"> {{adduser ? 'Add' : 'Edit'}}</button>
-                    <button class="btn" (click)='reset(userform)'>Reset</button>
-                    </ul>
-
-                </div>
+            </div>
         </table>
     </form>
+    <div class="form-group"></div>
     <div class='panel panel-primary'> </div>
-    <div class='panel panel-primary'>
+ 
         <div class='panel-body'>
             <div class='row'>
                 <div class='col-md-4'>
                     <input type='text' [(ngModel)]='listFilter' />
                 </div>
                 <div class='col-md-2'>Sort:</div>
-                <button class='btn btn-primary'>First Name </button>
-                <button class='btn btn-primary'>Last Name </button>
-                <button class='btn btn-primary'> Id </button>
+                <button class='btn btn-primary' (click)="sort('first_Name')">First Name </button>
+                <button class='btn btn-primary' (click)="sort('last_Name')">Last Name </button>
+                <button class='btn btn-primary' (click)="sort('employee_ID')"> Id </button>
 
             </div>
             <br>
@@ -80,11 +85,7 @@
                                         </div>
                                     </td>
 
-
-
-
-
-                                </tr>
+                               </tr>
                                 <tr>
                                     <td>
 
@@ -112,11 +113,11 @@
 
                                 </tr>
                             </table>
-                            <div class='panel panel-primary'> </div>
+                            <div class='panel primary_dot'> </div>
                         </tr>
 
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>
+  
