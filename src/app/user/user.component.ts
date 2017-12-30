@@ -4,10 +4,6 @@ import { UserService } from './user.service';
 import { IUser } from './user';
 import { I18NHtmlParser } from '@angular/compiler/src/i18n/i18n_html_parser';
 import {FormGroup,FormControl,FormBuilder,Validators} from '@angular/forms';
-import { useAnimation } from '@angular/core/src/animation/dsl';
-
-
-
 
 
 @Component({

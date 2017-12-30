@@ -1,46 +1,60 @@
-﻿<div >
+﻿<div>
     <h2>{{pageTitle}}</h2>
-  
-   
-        <div class='panel-body'>
-            <div class='row'>
-                <div class='col-md-4'>
-                    <input type='text' [(ngModel)]='listFilter' />
-                </div>
-                <br>
-                <div class='table-responsive'>
-                    <table class='table' *ngIf='users && users.length'>
-                        <tbody>
-                            <tr *ngFor='let user of filteredUsers'>
-                                <table>
-                                    <tr class='col-4'>
-                                        <td>
-                                            <div class="list-group">
-                                                <li class="list-group-item">{{user.first_Name}}</li>
 
-                                            </div>
-                                        </td>
-                                        <td>
 
-                                            <div class="list-group">
-                                                <li class="list-group-item">{{user.last_Name}}</li>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="list-group">
-                                                <li class="list-group-item">{{user.employee_ID}}</li>
+    <div class='panel-body'>
+        <div class='row'>
+            <div class='col-md-4'>
+                <input type='text' [(ngModel)]='listFilter' />
+            </div>
+            <br>
+            <div class='table-responsive'>
+                <table class='table' *ngIf='users && users.length'>
+                        <thead>
+                                <tr>
+                                  
+                                    <th>User ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Employee ID</th>
+                                  
+                                </tr>
+                            </thead>
+                    <tbody>
+                        <tr *ngFor='let user of filteredUsers'>
 
-                                            </div>
+                            <td>
 
-                                        </td>
+                                <a (click)='onCloseConfirm(user)'>
+                                    <li class="list-group-item">{{user.user_ID}}</li>
+                                </a>
 
-                                    </tr>
-                                </table>
-                                <div class='panel panel-primary'> </div>
-                            </tr>
 
-                        </tbody>
-                    </table>
-                </div>
-            
+                            </td>
+                            <td>
+                                <li class="list-group-item">{{user.first_Name}}</li>
+
+
+                            </td>
+                            <td>
+
+                               
+                                    <li class="list-group-item">{{user.last_Name}}</li>
+                            
+                            </td>
+                            <td>
+                              
+                                    <li class="list-group-item">{{user.employee_ID}}</li>
+
+                           </td>
+
+                        </tr>
+
+                </tbody>
+                </table>
+            </div>
+            <md-dialog-actions>
+
+                <button md-raised-button (click)="onCloseCancel()">CANCEL</button>
+            </md-dialog-actions>
         </div>

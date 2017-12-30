@@ -1,118 +1,136 @@
-﻿
-<div class="col-md-6 col-md-offset-3">
-    <h2>{{pageTitle}}</h2>
-     <form name="projectform" (ngSubmit)="f.form.valid && addProject(model)" #f="ngForm" novalidate>
-        <table>
-            <tr>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !project.valid }">
-            <td>
-            <label for="project">Project</label>
-             </td>
-                    <td>
-            <input type="text" class="form-control" name="project" [(ngModel)]="model.project" #project="ngModel" required />
-            </td>
-            <div *ngIf="f.submitted && !project.valid" class="help-block">project is required</div>
-        </div>
-        </tr>
-            <tr>
-          <div class="form-group" >
-              <td>
-                   </td>
-                    <td>
-           <input type="checkbox" ng-model="setdate" (click)='toggleCheckBox()'>  <label for="setdate">Set Start and End Date</label>
-          <input  disabled={{showDate}}   name="start_Date" [(ngModel)]="model.start_Date" type="date" value="29/12/2017" #start_Date="ngModel" />
-           <input disabled={{showDate}}  name="end_Date"   [(ngModel)]="model.end_Date" type="date" value="30/12/2017" #end_Date="ngModel" />
-           </td>
-          </div>
-                </tr>
+﻿<div class="col-md-6 col-md-offset-3">
+        <h2>{{pageTitle}}</h2>
+        <form [formGroup]="projectform" novalidate>
+            <table>
                 <tr>
-        <div class="slidecontainer">
-      <td >
-  0<input type="range" min="0" max="30" value="0" class="slider" id='priority'name="priority" [(ngModel)]="model.priority" #priority="ngModel">
- 
- </td>
- <td>30</td>
- 
-</div>
-<tr>
-    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !user_ID.valid }">
-        <td>
-        <label for="user_ID">Manager</label>
-         </td>
-                <td>
-        <input type="text" class="form-control" name="user_ID" [(ngModel)]="model.user_ID" #user_ID="ngModel" required />
-        </td>
-        <div *ngIf="f.submitted && !user_ID.valid" class="help-block">Manager is required</div>
-         <md-card-content>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button  class="btn" (click)='openUserModal()'>Search</button></td>
-        </md-card-content>        
-    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </tr>
-       <div class="form-group">
-            <button  class="btn btn-primary">Add</button>
-              <button  class="btn btn-primary" (click)='reset(userform)'>Reset</button>
-            
-        </div>
-      </table>   
-      
-    </form>
-    <div class='panel panel-primary'> </div>
-    <div class='panel panel-primary'>
-        <div class='panel-body'>
-            <div class='row'>
-                
-                 <div class='col-md-4'>
-                    <input type='text' [(ngModel)]='listFilter' placeholder="Search ..." />
+                    <form-control>
+                        <td>
+                            <label for="project">Project:
+                                <span class="required-field">*</span>
+                            </label>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" formControlName="project" />
+                        </td>
+                    </form-control>
+    
+                </tr>
+                <div class="form-group"></div>
+                <tr>
+                    <form-control>
+                        <td>
+                                <input type="checkbox" formControlName="date_start" (click)='toggleCheckBox()'>
+                                <label for="setdate">Set Start and End Date</label>
+                        </td>
+                      
+                        <td>
+                            <input type="date"  class="form-control-date" formControlName="start_Date" />
+                        </td>&nbsp;&nbsp;
+                        <td>
+                                <input type="date"  class="form-control-date" formControlName="end_Date" />
+                            </td>
+                    </form-control>
+                </tr>
+                <div class="form-group"></div>
+            <tr>
+                <form-control>
+                <div class="slidecontainer">
+                        <td>
+                                <label for="priority">Priority:
+                                 
+                                </label>
+                            </td>
+                        <td >
+                    0<input type="range" min="0" max="30" value="0" class="slider" formControlName="priority"  >
+                   
+                   </td>
+                   <td>30</td>
+                   
+                  </div>
+                </form-control> 
+            </tr>
+            <div class="form-group"></div>
+        <tr>
+                <form-control>
+                        <div class="slidecontainer">
+                                <td>
+                                        <label for="user_ID">Manager:
+                                                <span class="required-field">*</span>  
+                                        </label>
+                                    </td>
+                                    <td>
+                                            <input type="text" class="form-control" formControlName="user_ID" value="{{dialogResult}}" readonly/>
+                                        </td>
+                                    <td>
+                                    <md-card-content>
+                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button  class="btn" (click)='openUserModal()'>Search</button></td>
+                                    </md-card-content>   
+                                </td>
+                          </div>
+                        </form-control>
+            </tr>
+                <div class="form-group"></div>
+                <div class="button-form-group">
+                    <button [disabled]="projectform.invalid" class="btn btn-primary" (click)=addProject()> {{isUserUpdating ? 'Add' : 'Update'}}</button>
+                    <button class="btn btn-primary" (click)='reset()'>Reset</button>
+    
                 </div>
-            </div>
-            <br>
-            <div class='table-responsive'>
-                <table class='table'
-                        *ngIf='projects && projects.length'>
-                         <tbody>
-                            <tr *ngFor='let _project of filteredProjects'>
-                                <table>
-                                                          
-                                <tr  class='col-8'>  <td>
-                                       <table>
-                                           <tr>
-                                               <td>
-                                                    <label for="project">Project : </label>  {{_project.project}}
-                                               </td>
-                                           </tr>
-                                           <tr>
-                                                <td>
-                                                     <label for="NoOfTask">No of Tasks : </label> 0
-                                                </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <td>
-                                                        <label for="completed">Completed : </label> 0
+            </table>
+        </form>
+        <div class="form-group"></div>
+        <div class='panel panel-primary'> </div>
+      
+            <div class='panel-body'>
+                <div class='row'>
+                    
+                     <div class='col-md-4'>
+                        <input type='text' [(ngModel)]='listFilter' placeholder="Search ..." />
+                    </div>
+                </div>
+                <br>
+                <div class='table-responsive'>
+                    <table class='table'
+                            *ngIf='projects && projects.length'>
+                             <tbody>
+                                <tr *ngFor='let _project of filteredProjects'>
+                                    <table>
+                                                              
+                                    <tr  class='col-8'>  <td>
+                                           <table>
+                                               <tr>
+                                                   <td>
+                                                        <label for="project">Project : </label>  {{_project.project}}
                                                    </td>
-                                            </tr>
-                                            <tr>
+                                               </tr>
+                                               <tr>
                                                     <td>
-                                                         <label for="start_Date">Start Date : </label> {{_project.start_Date}}
-                                                    </td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                         <label for="NoOfTask">No of Tasks : </label> 0
+                                                    </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <td>
-                                                            <label for="end_Date">End Date : </label> {{_project.end_Date}}
+                                                            <label for="completed">Completed : </label> 0
                                                        </td>
                                                 </tr>
-
-                                       </table>
-                                </tr>
-                            
+                                                <tr>
+                                                        <td>
+                                                             <label for="start_Date">Start Date : </label> {{_project.start_Date}}
+                                                        </td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <td>
+                                                                <label for="end_Date">End Date : </label> {{_project.end_Date}}
+                                                           </td>
+                                                    </tr>
+    
+                                           </table>
+                                    </tr>
+                                
+                                       
                                    
+                                    </table>
+                                    <div class='panel panel-primary'> </div>    
+                                </tr>
                                
-                                </table>
-                                <div class='panel panel-primary'> </div>    
-                            </tr>
-                           
-                    </tbody>
-                </table>
-            </div>
+                        </tbody>
+                    </table>
+                </div>
+        
+       
     </div>
-   
-</div>
-
-
-
-

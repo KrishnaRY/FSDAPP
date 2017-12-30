@@ -18,9 +18,10 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 export class UserDialogComponent implements OnInit{
   
     constructor(public userListService: UserListService,
-        public thisDialogRef: MatDialogRef<UserDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: string) {
+        public thisDialogRef: MatDialogRef<UserDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: IUserList) {
 
      }
+     pageTitle:string='Users';
     errorMessage: string;
     _listFilter: string;
     get listFilter(): string {
@@ -54,7 +55,14 @@ export class UserDialogComponent implements OnInit{
             },
                 error => this.errorMessage = <any>error);
     }
-  
+    onCloseConfirm(user1:IUserList) {
+     
+        this.thisDialogRef.close(user1.user_ID);
+      }
+    
+      onCloseCancel() {
+        this.thisDialogRef.close('Cancel');
+      }
 
 }
 
