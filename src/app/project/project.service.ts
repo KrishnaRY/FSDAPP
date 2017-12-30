@@ -19,8 +19,28 @@ export class ProjectService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
+    addProject(project): Observable<Response> {
+
+        let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+  let options = new RequestOptions({ headers: cpHeaders });
+  return this._http.post(this._projectUrl +"/addProject", project, options)
+         .map(success => success.status)
+         .catch(this.handleError);
+  
+  
+  }
  
-   
+    updateProject(project): Observable<Response> {
+
+        let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+  let options = new RequestOptions({ headers: cpHeaders });
+  return this._http.post(this._projectUrl +"/updateProject", project, options)
+         .map(success => success.status)
+         .catch(this.handleError);
+  
+  
+  }
     private handleError(error: Response | any) {
        return Observable.throw(error.status);
     }

@@ -20,26 +20,39 @@
                    </td>
                     <td>
            <input type="checkbox" ng-model="setdate" (click)='toggleCheckBox()'>  <label for="setdate">Set Start and End Date</label>
-          <input  disabled={{showDate}}   name="start_Date" [(ngModel)]="model.start_Date" type="date" value="start date" #start_Date="ngModel" />
-           <input disabled={{showDate}}  name="end_Date"   [(ngModel)]="model.end_Date" type="date" value="end date" #end_Date="ngModel" />
+          <input  disabled={{showDate}}   name="start_Date" [(ngModel)]="model.start_Date" type="date" value="29/12/2017" #start_Date="ngModel" />
+           <input disabled={{showDate}}  name="end_Date"   [(ngModel)]="model.end_Date" type="date" value="30/12/2017" #end_Date="ngModel" />
            </td>
           </div>
                 </tr>
                 <tr>
         <div class="slidecontainer">
-      <td colspan="2">
-  0<input type="range" min="0" max="30" value="0" class="slider" name="priority" [(ngModel)]="model.priority" #priority="ngModel">
+      <td >
+  0<input type="range" min="0" max="30" value="0" class="slider" id='priority'name="priority" [(ngModel)]="model.priority" #priority="ngModel">
  
  </td>
  <td>30</td>
- <td>30</td>
+ 
 </div>
+<tr>
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !user_ID.valid }">
+        <td>
+        <label for="user_ID">Manager</label>
+         </td>
+                <td>
+        <input type="text" class="form-control" name="user_ID" [(ngModel)]="model.user_ID" #user_ID="ngModel" required />
+        </td>
+        <div *ngIf="f.submitted && !user_ID.valid" class="help-block">Manager is required</div>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button  class="btn">Search</button></td>
+    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </tr>
        <div class="form-group">
             <button  class="btn btn-primary">Add</button>
               <button  class="btn btn-primary" (click)='reset(userform)'>Reset</button>
             
         </div>
       </table>   
+      
     </form>
     <div class='panel panel-primary'> </div>
     <div class='panel panel-primary'>
@@ -95,7 +108,9 @@
                 </table>
             </div>
     </div>
+   
 </div>
+
 
 
 
