@@ -1,136 +1,168 @@
 ﻿<div class="col-md-6 col-md-offset-3">
-        <h2>{{pageTitle}}</h2>
-        <form [formGroup]="projectform" novalidate>
-            <table>
-                <tr>
-                    <form-control>
+    <h2>{{pageTitle}}</h2>
+    <form [formGroup]="form" novalidate>
+        <table>
+            <tr>
+                <form-control>
+                    <td>
+                        <label for="project">Project:
+                            <span class="required-field">*</span>
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" formControlName="project" />
+                    </td>
+                </form-control>
+
+            </tr>
+            <div class="form-group"></div>
+            <tr>
+                <form-control>
+                    <td>
+                        <input type="checkbox" formControlName="date_start" (click)='toggleCheckBox()'>
+                        <label for="date_start">Set Start and End Date</label>
+                    </td>
+
+                    <td>
+                        <input type="date" disabled={{showDate}} class="form-control-date" formControlName="start_Date" />
+                    </td>&nbsp;&nbsp;
+                    <td>
+                        <input type="date" disabled={{showDate}} class="form-control-date" formControlName="end_Date" />
+                    </td>
+                </form-control>
+            </tr>
+            <div class="form-group"></div>
+            <tr>
+                <form-control>
+                    <div class="slidecontainer">
                         <td>
-                            <label for="project">Project:
+                            <label for="priority">Priority:
+
+                            </label>
+                        </td>
+                        <td>
+                  
+                            <input type="number" min="0" max='30' formControlName="priority">
+
+                        </td>
+                       
+
+                    </div>
+                </form-control>
+            </tr>
+            <div class="form-group"></div>
+            <tr>
+                    <md-content>
+                <form-control>
+                  
+                        <td>
+                            <label for="user_ID">Manager:
                                 <span class="required-field">*</span>
                             </label>
                         </td>
                         <td>
-                            <input type="text" class="form-control" formControlName="project" />
+                            <input type="text" class="form-control" formControlName="user_ID" value="{{dialogValue}}" readonly/>
                         </td>
-                    </form-control>
-    
-                </tr>
-                <div class="form-group"></div>
-                <tr>
-                    <form-control>
-                        <td>
-                                <input type="checkbox" formControlName="date_start" (click)='toggleCheckBox()'>
-                                <label for="setdate">Set Start and End Date</label>
-                        </td>
-                      
-                        <td>
-                            <input type="date"  class="form-control-date" formControlName="start_Date" />
-                        </td>&nbsp;&nbsp;
-                        <td>
-                                <input type="date"  class="form-control-date" formControlName="end_Date" />
-                            </td>
-                    </form-control>
-                </tr>
-                <div class="form-group"></div>
-            <tr>
-                <form-control>
-                <div class="slidecontainer">
-                        <td>
-                                <label for="priority">Priority:
-                                 
-                                </label>
-                            </td>
-                        <td >
-                    0<input type="range" min="0" max="30" value="0" class="slider" formControlName="priority"  >
-                   
-                   </td>
-                   <td>30</td>
-                   
-                  </div>
-                </form-control> 
+                               <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn" (click)='openUserModal()'>Search</button>
+                                </td>
+                 </form-control>
+            </md-content>
             </tr>
             <div class="form-group"></div>
-        <tr>
-                <form-control>
-                        <div class="slidecontainer">
-                                <td>
-                                        <label for="user_ID">Manager:
-                                                <span class="required-field">*</span>  
-                                        </label>
-                                    </td>
-                                    <td>
-                                            <input type="text" class="form-control" formControlName="user_ID" value="{{dialogResult}}" readonly/>
-                                        </td>
-                                    <td>
-                                    <md-card-content>
-                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button  class="btn" (click)='openUserModal()'>Search</button></td>
-                                    </md-card-content>   
-                                </td>
-                          </div>
-                        </form-control>
-            </tr>
-                <div class="form-group"></div>
-                <div class="button-form-group">
-                    <button [disabled]="projectform.invalid" class="btn btn-primary" (click)=addProject()> {{isUserUpdating ? 'Add' : 'Update'}}</button>
-                    <button class="btn btn-primary" (click)='reset()'>Reset</button>
-    
-                </div>
-            </table>
-        </form>
+            <div class="button-form-group">
+                <button  class="btn btn-primary" (click)=addProject()> {{isUserUpdating ? 'Add' : 'Update'}}</button>
+                <button class="btn btn-primary" (click)='reset()'>Reset</button>
+
+            </div>
+        </table>
+    </form>
+    <div class="form-group"></div>
+    <div class='panel panel-primary'> </div>
+
+    <div class='panel-body'>
+        <div class='row'>
+
+            <div class='col-md-4'>
+                <input type='text' [(ngModel)]='listFilter' placeholder="Search ..." />
+            </div>
+        </div>
         <div class="form-group"></div>
-        <div class='panel panel-primary'> </div>
-      
-            <div class='panel-body'>
-                <div class='row'>
-                    
-                     <div class='col-md-4'>
-                        <input type='text' [(ngModel)]='listFilter' placeholder="Search ..." />
-                    </div>
-                </div>
-                <br>
-                <div class='table-responsive'>
-                    <table class='table'
-                            *ngIf='projects && projects.length'>
-                             <tbody>
-                                <tr *ngFor='let _project of filteredProjects'>
+        <div  class='col-md-2'>Sort:</div>
+        <button class='btn' (click)="sort('start_Date')">Start Date </button>
+        <button class='btn' (click)="sort('end_Date')">End Date </button>
+        <button class='btn' (click)="sort('priority')"> Priority </button>
+
+    </div>
+        <br>
+        <div class='table-responsive'>
+            <table class='table' *ngIf='projects && projects.length'>
+                <tbody>
+                    <tr *ngFor='let _project of filteredProjects'>
+                        <table>
+
+                            <tr class='col-8'>
+                                <td>
                                     <table>
-                                                              
-                                    <tr  class='col-8'>  <td>
-                                           <table>
-                                               <tr>
-                                                   <td>
-                                                        <label for="project">Project : </label>  {{_project.project}}
-                                                   </td>
-                                               </tr>
-                                               <tr>
-                                                    <td>
-                                                         <label for="NoOfTask">No of Tasks : </label> 0
-                                                    </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <td>
-                                                            <label for="completed">Completed : </label> 0
-                                                       </td>
-                                                </tr>
-                                                <tr>
-                                                        <td>
-                                                             <label for="start_Date">Start Date : </label> {{_project.start_Date}}
-                                                        </td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <td>
-                                                                <label for="end_Date">End Date : </label> {{_project.end_Date}}
-                                                           </td>
-                                                    </tr>
-    
-                                           </table>
-                                    </tr>
-                                
-                                       
-                                   
+                                        <tr>
+                                            <td>
+                                                <label class='label1' for="project">Project : {{_project.project}}        </label> 
+                                            </td>
+                                      
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class='label1' for="NoOfTask">No of Tasks : 0</label> 
+                                            </td>
+                                            <td>
+                                                <label class='label1' for="completed">Completed :0 </label> 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class='label1 'for="start_Date">Start Date :  {{_project.start_Date}} </label>
+                                            </td> 
+                                            <td>
+                                                <label class='label1' for="end_Date">End Date :  {{_project.end_Date}} </label>
+                                            </td>
+                                        </tr>        
+
                                     </table>
-                                    <div class='panel panel-primary'> </div>    
-                                </tr>
-                               
-                        </tbody>
-                    </table>
-                </div>
-        
-       
+                                    <td>
+                                            <label class='label1' for="priority">Priority:  {{_project.priority}} </label>
+                                 </td> 
+                                 <td> 
+                                     <tr>
+                                            <td>
+                                                    <div class="list-group">
+                                                            <button class="btn btn-primary;align:right" (click)='edit(_project)'>Update</button>
+                
+                                                        </div>
+                                         </td> 
+                                           </tr>
+                                     <tr>
+                                         <td>
+                                                <div class="list-group">
+                                                        <button class="btn btn-primary;align:right" (click)='suspendProject(_project.project_ID)'>Suspend</button>
+            
+                                                    </div>
+                                     </td> 
+                                         
+
+                                     </tr>
+
+                                 </td>
+                            </tr>
+
+
+
+                        </table>
+                        <div class='panel panel-primary'> </div>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
     </div>

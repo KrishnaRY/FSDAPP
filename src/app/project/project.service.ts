@@ -41,6 +41,16 @@ export class ProjectService {
   
   
   }
+  suspendProject(project_ID:number): Observable<Response> {
+
+    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+let options = new RequestOptions({ headers: cpHeaders });
+return this._http.put(this._projectUrl +"/suspendProject/"+project_ID, "", options)
+     .map(success => success.status)
+     .catch(this.handleError);
+
+
+}
     private handleError(error: Response | any) {
        return Observable.throw(error.status);
     }

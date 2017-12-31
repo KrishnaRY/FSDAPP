@@ -1,34 +1,8 @@
-.list-group{
-    width: 280px;
-    
-   
-}
-.list-group-item{
-    background-color :#F5F6F6;
-    overflow-wrap: break-word;
-    border-style:hidden;
-}
-.form-control{
-     width: 280px;
-     background-color :#F5F6F6; 
-     border-style:hidden;
-     padding-left:20px;
-       
-}
-.required-field {
-    color:red;
-    font-size: 20px;
-}
-tr.row2 td {
-    padding-top: 40px;
-}
 
-label {
-    width:180px;
-    clear:left;
-    text-align:left;
-    padding-right:10px;
-}
-.button-form-group{
-    float: right;
-}
+md-dialog-container {
+    position: fixed;
+    left: 20%;
+    top: 0%;
+    background-color: white;
+    z-index: 100000;
+  }

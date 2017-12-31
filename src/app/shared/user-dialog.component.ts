@@ -57,7 +57,7 @@ export class UserDialogComponent implements OnInit{
     }
     onCloseConfirm(user1:IUserList) {
      
-        this.thisDialogRef.close(user1.user_ID);
+        this.thisDialogRef.close(user1);
       }
     
       onCloseCancel() {

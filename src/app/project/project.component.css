@@ -3,13 +3,19 @@
     
    
 }
+tr{
+    width: 180px;
+    
+}
+
+
 .list-group-item{
     background-color :#F5F6F6;
     overflow-wrap: break-word;
     border-style:hidden;
 }
 .form-control{
-     width: 280px;
+     width: 180px;
      background-color :#F5F6F6; 
      border-style:hidden;
      padding-left:20px;
@@ -88,4 +94,8 @@ label {
     height:1px;
     width:100%;
   }
-
+  .label1 {
+    clear:left;
+    text-align:left;
+    padding-right:5px;
+}
