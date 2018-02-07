@@ -16,6 +16,7 @@ import { HttpModule } from '@angular/http';
 import { UserListService } from './shared/user-list.service';
 import { UserDialogComponent } from './shared/index';
 import { MatDialogModule } from '@angular/material';
+import {DatepickerModule} from 'ng2-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,7 @@ import { MatDialogModule } from '@angular/material';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatDialogModule,
-
+    DatepickerModule.forRoot()
 
   ],
   entryComponents: [

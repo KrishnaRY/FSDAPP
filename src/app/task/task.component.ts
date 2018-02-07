@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TaskService } from './task.service';
 import { ITask } from './task';
 import { I18NHtmlParser } from '@angular/compiler/src/i18n/i18n_html_parser';
-import { NgForm } from '@angular/forms';
+import {FormGroup,FormControl,FormBuilder,Validators} from '@angular/forms';
 
 @Component({
   
@@ -29,7 +29,9 @@ export class TaskComponent implements OnInit{
     tasks: ITask[] = [];
     constructor(
         private router: Router,
-        private taskService: TaskService) { }
+        private taskService: TaskService) { 
+            
+        }
 
         ngOnInit(): void {
             this.taskService.getTasks()
@@ -46,6 +48,9 @@ export class TaskComponent implements OnInit{
             return this.tasks.filter((_task: ITask) =>
             _task.task.toLocaleLowerCase().indexOf(filterBy) !== -1);
         }
+
+
+
 }
 
 

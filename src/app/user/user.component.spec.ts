@@ -1,15 +1,16 @@
 ﻿
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UserComponent } from './user.component';
+import { UserService } from './user.service';
 
-describe('UserDialogComponent', () => {
+describe('UserComponent', () => {
   let component: UserComponent;
   let fixture: ComponentFixture<UserComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserComponent ]
+      declarations: [ UserComponent ],
+      providers:    [ UserService ]
     })
     .compileComponents();
   }));
@@ -17,6 +18,9 @@ describe('UserDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UserComponent);
     component = fixture.componentInstance;
+   //  userService = fixture.debugElement.injector.get(UserService);
+   
+
     fixture.detectChanges();
   });
 
@@ -24,6 +28,8 @@ describe('UserDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+
 
 
 

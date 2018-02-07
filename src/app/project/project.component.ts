@@ -43,10 +43,10 @@ export class ProjectComponent implements OnInit {
         private projectService: ProjectService,
         formBuilder: FormBuilder) {
         this.form = new FormGroup({
-            project: new FormControl(null, Validators.required),
+            project: new FormControl('', Validators.required),
             date_start: new FormControl(false),
-            start_Date: new FormControl(this.currentDate()),
-            end_Date: new FormControl(this.currentDate()),
+            start_Date: new FormControl({value:this.currentDate(),disabled:true}),
+            end_Date: new FormControl({value:this.currentToDate(),disabled:true}),
             priority: new FormControl(0),
             user_ID: new FormControl(null, Validators.required)
 
@@ -61,6 +61,11 @@ export class ProjectComponent implements OnInit {
         const currentDate = new Date();
         return currentDate.toISOString().substring(0, 10);
     }
+     currentToDate() {
+        const currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() + 1);
+        return currentDate.toISOString().substring(0, 10);
+    }
     performFilter(filterBy: string): IProject[] {
         filterBy = filterBy.toLocaleLowerCase();
         return this.projects.filter((_project: IProject) =>
@@ -69,7 +74,7 @@ export class ProjectComponent implements OnInit {
 
     toggleCheckBox(): void {
 
-        this.showDate = !this.showDate;
+     this.showDate = !this.showDate;
     }
 
     addProject() {
@@ -101,11 +106,10 @@ export class ProjectComponent implements OnInit {
         } else {
 
             this.projectService.addProject(project1).subscribe(response => {
-
+            this.refreshData();
             },
                 error => this.errorMessage = <any>error);
-            this.refreshData();
-            this.form.reset();
+             this.form.reset();
             this.form.setValue({ start_Date: this.currentDate(), end_Date: this.currentDate(), priority: 0 });
 
         }
@@ -130,11 +134,11 @@ export class ProjectComponent implements OnInit {
 suspendProject(project_ID){
 
     this.projectService.suspendProject(project_ID) .subscribe(response => {
-      
+        this.refreshData();
              
       },
           error => this.errorMessage = <any>error);
-          this.refreshData();
+        
 }
     refreshData() {
         this.projectService.getProjects()

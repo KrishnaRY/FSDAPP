@@ -25,9 +25,13 @@
     "@angular/router": "^4.0.0",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "i": "^0.3.6",
+    "ng2-bootstrap": "^1.6.3",
+    "ng2-datepicker-bootstrap": "^1.0.0",
     "ng2-slideable-directive": "^1.0.13",
     "ng2-slider-component": "^1.0.9",
     "ng2-styled-directive": "^1.0.5",
+    "ngx-bootstrap": "^2.0.0-rc.0",
     "rxjs": "^5.4.1",
     "zone.js": "^0.8.14"
   },

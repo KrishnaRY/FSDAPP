@@ -62,11 +62,11 @@ export class UserComponent implements OnInit{
                         error => this.errorMessage = <any>error);
             } else {
                 this.userService.addUser(user1) .subscribe(response => {
-           
+                 this.refreshData();  
                    
                 },
                     error => this.errorMessage = <any>error);    
-                    this.refreshData();           
+                            
             }
     
           
@@ -90,11 +90,11 @@ export class UserComponent implements OnInit{
         delete(user_ID){
        
           this.userService.deleteUser(user_ID) .subscribe(response => {
-              this.router.navigate(['/user']); 
-                   
+                this.refreshData();
+                              
             },
                 error => this.errorMessage = <any>error);
-                this.refreshData();
+              
         }
         ngOnInit(): void {
          this.refreshData();
